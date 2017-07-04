@@ -11,9 +11,8 @@
 3. 调用registerReceiver方法注册
 
 Tips：
-1. onReceive 中不能执行耗时任务
-2. 动态注册的广播可以通过unregisterReceiver取消，
-3. action的注册和解注册成对出现在context对应的生命周期中，例如onCreate onDestroy，以及 onResume和onPause
+1. 动态注册的广播可以通过unregisterReceiver取消，
+2. action的注册和解注册成对出现在context对应的生命周期中，例如onCreate onDestroy，以及 onResume和onPause
 
 
 2.广播的类型
