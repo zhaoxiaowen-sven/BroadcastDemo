@@ -13,7 +13,7 @@
 Tips：
 1. 动态注册的广播可以通过unregisterReceiver取消，
 2. action的注册和解注册成对出现在context对应的生命周期中，例如onCreate onDestroy，以及 onResume和onPause
-
+3. 同一个receiver可以接收动态注册和静态注册的广播
 
 2.广播的类型
 有序广播和无序广播

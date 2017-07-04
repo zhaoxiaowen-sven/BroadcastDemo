@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void initMyReceiver(){
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("MyIntent");
+        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(myReceiver, intentFilter);
     }
 
