@@ -24,7 +24,32 @@ Tips：
 
 
 4.广播和权限
-通过在发送广播时添加权限，并且在接收时进行权限验证，更安全
+1. 谁有权限接收 (和安装的顺序有关 先装发送者)
+    
+    1. 发送者的manifest文件增加权限
+    
+       <permission android:name="com.sven.permission.my.receiver.RECEIVE"/>
+    
+    2. 发送时增加权限
+        
+        public void sendBroadcast(View view) {
+            sendBroadcast(new Intent("com.sven.action.my.receiver"),
+                    "com.sven.permission.my.receiver.RECEIVE");
+        }
+        
+    3. receiver 要添加对应的权限
+    
+       <uses-permission android:name="com.sven.permission.my.receiver.RECEIVE"/>
+    
+    
+2. 谁有权限发送 （和安装顺序有关，先安装接收者） 
+    1. 接收者的manifest文件中声明权限
+       <permission android:name="com.sven.permission.my.receiver.SEND"/>
+    2. 接收者的receiver节点中添加
+       
+    3. 发送者的manifest文件中使用
+       <uses-permission android:name="com.sven.permission.my.receiver.SEND"/>
+
 
 安全高效使用广播的一些原则：
 

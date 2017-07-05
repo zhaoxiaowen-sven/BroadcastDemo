@@ -26,7 +26,7 @@ public class MyService extends Service {
     public void initMyReceiver(){
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("MyIntent");
-        registerReceiver(myBroadcastReceiver, intentFilter);
+        registerReceiver(myBroadcastReceiver, intentFilter, "com.sven.permission.my.receiver.SEND", null);
     }
 
     @Override
