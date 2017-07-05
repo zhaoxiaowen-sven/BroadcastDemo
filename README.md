@@ -50,6 +50,7 @@ Tips：
     3. 发送者的manifest文件中使用
        <uses-permission android:name="com.sven.permission.my.receiver.SEND"/>
 
+    自定义的最好同时声明，系统权限则不存在以上问题
 
 安全高效使用广播的一些原则：
 

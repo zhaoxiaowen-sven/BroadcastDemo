@@ -29,8 +29,9 @@
         </receiver>
 
         <receiver android:name=".MyReceiverWithPermission"
-           android:permission="com.sven.permission.my.receiver.SEND">
-            <intent-filter>
+
+           android:permission="android.permission.SEND_SMS">
+           <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT"/>
                 <action android:name="com.sven.action.my.receiver"/>
             </intent-filter>
