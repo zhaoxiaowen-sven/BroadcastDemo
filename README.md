@@ -14,19 +14,16 @@ Tips：
 1. 动态注册的广播可以通过unregisterReceiver取消，
 2. action的注册和解注册成对出现在context对应的生命周期中，例如onCreate onDestroy，以及 onResume和onPause
 3. 同一个receiver可以接收动态注册和静态注册的广播
+4. 静态广播在应用没有启动时，是无法接收到的，即使加了Intent.FLAG_INCLUDE_STOPPED_PACKAGES
 
 2.广播的类型
 有序广播和无序广播
 
 
-
-3.LocalBroadcastReceiver
-
-
 4.广播和权限
 1. 谁有权限接收 (和安装的顺序有关 先装发送者)
     
-    1. 发送者的manifest文件增加权限
+    1. 发送者的manifest文件增加权限声明
     
        <permission android:name="com.sven.permission.my.receiver.RECEIVE"/>
     
@@ -37,7 +34,7 @@ Tips：
                     "com.sven.permission.my.receiver.RECEIVE");
         }
         
-    3. receiver 要添加对应的权限
+    3. receiver manifest要添加对应的权限
     
        <uses-permission android:name="com.sven.permission.my.receiver.RECEIVE"/>
     
@@ -45,7 +42,9 @@ Tips：
 2. 谁有权限发送 （和安装顺序有关，先安装接收者） 
     1. 接收者的manifest文件中声明权限
        <permission android:name="com.sven.permission.my.receiver.SEND"/>
+    
     2. 接收者的receiver节点中添加
+       android:permission="com.sven.permission.my.receiver.SEND"
        
     3. 发送者的manifest文件中使用
        <uses-permission android:name="com.sven.permission.my.receiver.SEND"/>

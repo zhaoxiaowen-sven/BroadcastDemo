@@ -16,6 +16,7 @@ public class MyReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.i(TAG, "receive action ");
         String action = intent.getAction();
         switch (action) {
             case Intent.ACTION_USER_PRESENT:
