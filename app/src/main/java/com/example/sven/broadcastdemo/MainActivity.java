@@ -15,22 +15,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MainActivity1";
 
-    private Button bt1, bt2;
+    private Button bt1, bt2, bt3;
     private BroadcastReceiver myReceiver = new MyReceiver();
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyInnerReceiver myInnerReceiver;
+    private OrderedReceiver1 orderedReceiver1;
 
     class MyInnerReceiver extends BroadcastReceiver{
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+//            Log.i(TAG, "receive MyInnerReceiver MyIntent" + action);
             switch (action){
                 case "MyIntent":
                     Log.i(TAG, "receive MyInnerReceiver MyIntent");
                     break;
-                case "localManagerIntent":
-                    Log.i(TAG, "receive MyInnerReceiver localManagerIntent");
+                case "MyInnerReceiver":
+                    Log.i(TAG, "receive MyInnerReceiver MyInnerReceiver");
                     break;
             }
         }
@@ -48,9 +50,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt2 = (Button) findViewById(R.id.bt2);
         bt2.setOnClickListener(this);
 
+        bt3 = (Button) findViewById(R.id.bt3);
+        bt3.setOnClickListener(this);
+
         initMyReceiver();
         initLocalReceiver();
         initMyInnerReceiver();
+//        initOrderedReceiver1();
     }
 
     private void initLocalReceiver() {
@@ -63,19 +69,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void initMyReceiver(){
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("MyIntent");
+        intentFilter.addAction("com.sven.action.my.receiver.ordered.receiver");
+        intentFilter.setPriority(101);
         intentFilter.addAction(Intent.ACTION_SCREEN_ON);
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(myReceiver, intentFilter);
+
     }
 
     public void initMyInnerReceiver(){
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("MyIntent");
-        intentFilter.addAction("localManagerIntent");
+        intentFilter.addAction("MyInnerReceiver");
         myInnerReceiver = new MyInnerReceiver();
-        registerReceiver(myInnerReceiver, intentFilter);
+//        registerReceiver(myInnerReceiver, intentFilter);
+        registerReceiver(myInnerReceiver, intentFilter,"com.sven.permission.my.inner.receiver",null);
     }
 
+
+//    public void initOrderedReceiver1(){
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction("OrderedReceiver1");
+//        intentFilter.setPriority(101);
+//        orderedReceiver1 = new OrderedReceiver1();
+//        registerReceiver(orderedReceiver1, intentFilter);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -89,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mLocalBroadcastManager.sendBroadcast(new Intent("localManagerIntent"));
                 break;
             case R.id.bt3:
-
+                sendBroadcast(new Intent("MyInnerReceiver"));
+//                sendBroadcast(new Intent("MyInnerReceiver"),"com.sven.permission.my.inner.receiver");
                 break;
             default:
                 break;

@@ -3,10 +3,15 @@
     package="com.example.sven.broadcastdemo">
 
     <uses-permission android:name="com.sven.permission.my.receiver.RECEIVE" />
+    <uses-permission android:name="com.sven.permission.my.inner.receiver"/>
 
     <permission android:name="com.sven.permission.my.receiver.RECEIVE" />
 
     <permission android:name="com.sven.permission.my.receiver.SEND" />
+
+    <permission
+        android:name="com.sven.permission.my.inner.receiver"
+        android:protectionLevel="signature"/>
 
     <application
         android:allowBackup="true"
@@ -32,12 +37,22 @@
 
         <receiver
             android:name=".MyReceiverWithPermission"
-            android:permission="com.sven.permission.my.receiver.SEND"
-            >
+            android:permission="com.sven.permission.my.receiver.SEND">
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="com.sven.action.my.receiver.with.permission" />
                 <action android:name="com.sven.action.my.receiver.need.permission" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".OrderedReceiver1">
+            <intent-filter android:priority="100">
+                <action android:name="com.sven.action.my.receiver.ordered.receiver" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".OrderedReceiver2">
+            <intent-filter android:priority="1000">
+                <action android:name="com.sven.action.my.receiver.ordered.receiver" />
             </intent-filter>
         </receiver>
 
