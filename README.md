@@ -148,7 +148,8 @@ BroadcastReceiver 四大组件之一，主要用于监听手机状态的变以�
 7. 不要通过广播启动activity，可以使用通知替代
 
 问题：
-1. 有哪些静态广播启动应用的进程，是否有其他要求？
-2. 
+1. 有哪些静态广播可以启动进程，是否有其他要求？
+2. 上文提到的发送及接收时permission的问题？
 参考资料：
 https://developer.android.com/guide/components/broadcasts.html#security_considerations_and_best_practices
+http://www.cnblogs.com/lwbqqyumidi/p/4168017.html
