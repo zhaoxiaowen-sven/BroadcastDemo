@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sven.broadcastdemo">
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.sven.permission.my.receiver.RECEIVE" />
     <uses-permission android:name="com.sven.permission.my.inner.receiver"/>
 
@@ -33,13 +33,16 @@
                 <action android:name="android.intent.action.myreceiver" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
         </receiver>
 
         <receiver
             android:name=".MyReceiverWithPermission"
             android:permission="com.sven.permission.my.receiver.SEND">
             <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
+
                 <action android:name="com.sven.action.my.receiver.with.permission" />
                 <action android:name="com.sven.action.my.receiver.need.permission" />
             </intent-filter>
