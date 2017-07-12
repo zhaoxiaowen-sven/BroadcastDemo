@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,8 +18,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MainActivity1";
 
+    private Handler handler; // Handler for the separate Thread
+
     private Button bt1, bt2, bt3;
     private BroadcastReceiver myReceiver = new MyReceiver();
+    private BroadcastReceiver myReceiver2;
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyInnerReceiver myInnerReceiver;
     private OrderedReceiver1 orderedReceiver1;
@@ -53,7 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt3 = (Button) findViewById(R.id.bt3);
         bt3.setOnClickListener(this);
 
+
         initMyReceiver();
+        initMyReceiver2();
         initLocalReceiver();
         initMyInnerReceiver();
 //        initOrderedReceiver1();
@@ -74,6 +82,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intentFilter.addAction(Intent.ACTION_SCREEN_ON);
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(myReceiver, intentFilter);
+
+    }
+
+    public void initMyReceiver2() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("MyIntent");
+        HandlerThread handlerThread = new HandlerThread("MyNewThread");
+        handlerThread.start();
+        Looper looper = handlerThread.getLooper();
+        handler = new Handler(looper);
+        registerReceiver(myReceiver2, intentFilter, null, handler);
 
     }
 

@@ -58,6 +58,11 @@
                 <action android:name="com.sven.action.my.receiver.ordered.receiver" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".MyReceiver2">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".MyService"
